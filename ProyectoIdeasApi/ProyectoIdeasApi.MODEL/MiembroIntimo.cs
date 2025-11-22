@@ -10,11 +10,11 @@ namespace ProyectoIdeasApi.MODEL
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid MiembroId { get; set; }
-        public Miembro Miembro { get; set; }
+        public Guid PropietarioId { get; set; }
+        public Miembro Propietario { get; set; } = null!;
 
         public Guid IntimoId { get; set; }
-        public Miembro Intimo { get; set; }
+        public Miembro Intimo { get; set; } = null!;
 
         public DateTime FechaAgregado { get; set; } = DateTime.UtcNow;
 

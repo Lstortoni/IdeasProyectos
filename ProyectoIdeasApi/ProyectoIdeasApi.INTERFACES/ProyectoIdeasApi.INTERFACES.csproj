@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProyectoIdeasApi.CONTRACT\ProyectoIdeasApi.CONTRACT.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.MODEL\ProyectoIdeasApi.MODEL.csproj" />
   </ItemGroup>
 
 </Project>

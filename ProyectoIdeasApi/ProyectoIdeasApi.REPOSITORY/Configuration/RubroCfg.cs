@@ -11,9 +11,17 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE.Configuration
 {
     public class RubroCfg : IEntityTypeConfiguration<Rubro>
     {
-        void IEntityTypeConfiguration<Rubro>.Configure(EntityTypeBuilder<Rubro> builder)
+        public void Configure(EntityTypeBuilder<Rubro> e)
         {
-            throw new NotImplementedException();
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Nombre)
+                .IsRequired()
+                .HasMaxLength(100);
+           
+            e.Property(x => x.Descripcion)
+              .IsRequired()
+              .HasMaxLength(200);
         }
     }
 }

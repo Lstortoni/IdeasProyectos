@@ -11,9 +11,27 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE.Configuration
 {
     public class MiembreIntimoCfg : IEntityTypeConfiguration<MiembroIntimo>
     {
-        void IEntityTypeConfiguration<MiembroIntimo>.Configure(EntityTypeBuilder<MiembroIntimo> builder)
+        public void Configure(EntityTypeBuilder<MiembroIntimo> e)
         {
-            throw new NotImplementedException();
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.FechaAgregado)
+             .HasPrecision(6);
+
+            e.Property(x => x.Nota)
+             .HasMaxLength(300);
+
+            // Relación: un Miembro (Propietario) tiene muchos MiembroIntimo
+            e.HasOne(mi => mi.Propietario)
+             .WithMany(m => m.Intimos)               // colección en Miembro
+             .HasForeignKey(mi => mi.PropietarioId)
+             .OnDelete(DeleteBehavior.Cascade);
+
+            // Relación: el Intimo también es un Miembro
+            e.HasOne(mi => mi.Intimo)
+             .WithMany()                             // por ahora sin colección inversa
+             .HasForeignKey(mi => mi.IntimoId)
+             .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

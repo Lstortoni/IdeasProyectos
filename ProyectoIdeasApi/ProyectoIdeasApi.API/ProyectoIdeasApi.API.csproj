@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectoIdeasApi.CONTRACT\ProyectoIdeasApi.CONTRACT.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.INTERFACES\ProyectoIdeasApi.INTERFACES.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.MODEL\ProyectoIdeasApi.MODEL.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.REPOSITORY\ProyectoIdeasApi.INFRASTRUCTURE.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.SERVICES\ProyectoIdeasApi.SERVICES.csproj" />
   </ItemGroup>
 
 </Project>

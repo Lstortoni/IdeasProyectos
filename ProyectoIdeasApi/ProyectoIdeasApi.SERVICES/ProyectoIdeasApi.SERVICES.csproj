@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectoIdeasApi.CONTRACT\ProyectoIdeasApi.CONTRACT.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.INTERFACES\ProyectoIdeasApi.INTERFACES.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.MODEL\ProyectoIdeasApi.MODEL.csproj" />
+  </ItemGroup>
+
 </Project>
