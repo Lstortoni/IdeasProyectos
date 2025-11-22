@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProyectoIdeasApi.MODEL
+{
+    public class IdeaConcreta
+    {
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        // Datos principales
+        public string Nombre { get; set; } = string.Empty;
+
+        // Descripción / propósito de la idea
+        public string Proposito { get; set; } = string.Empty;
+
+        // Color visual para identificar la idea (ej: "#FFAA00" o "green")
+        public string Color { get; set; } = string.Empty;
+
+        public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
+
+        // --- Relaciones ---
+
+        // Quien creó la idea
+        public Guid CreadorId { get; set; }
+        public Miembro Creador { get; set; }= null!;
+
+        // Lista de personas interesadas en esta idea
+        public List<Interesado> Interesados { get; set; } = new();
+
+        // Grupo asociado a la idea (puede no existir todavía)
+        public Grupo? Grupo { get; set; }
+
+        public Guid? RubroId { get; set; }
+        public Rubro? Rubro { get; set; }
+    }
+}
