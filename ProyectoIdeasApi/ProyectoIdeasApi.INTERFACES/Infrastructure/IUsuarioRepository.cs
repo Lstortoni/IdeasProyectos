@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoIdeasApi.INTERFACES
+namespace ProyectoIdeasApi.INTERFACES.Infrastructure
 {
-    public interface IUsuarioData
+    public interface IUsuarioRepository
     {
         Task<Usuario?> GetByEmailAsync(string email, CancellationToken ct);
         Task<bool> ExistsByEmailAsync(string email, CancellationToken ct);
