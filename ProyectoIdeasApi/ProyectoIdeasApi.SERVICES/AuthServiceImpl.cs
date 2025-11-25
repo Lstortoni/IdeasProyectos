@@ -41,7 +41,11 @@ namespace ProyectoIdeasApi.SERVICES
             if (principal?.Identity is null || !principal.Identity.IsAuthenticated)
                 return Task.FromResult<CurrentUserDto?>(null);
 
-            var id = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0";
+            var idClaim = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!Guid.TryParse(idClaim, out var id))
+                return Task.FromResult<CurrentUserDto?>(null); // o lanzar excepción, como prefieras
+
             var email = principal.FindFirst(ClaimTypes.Email)?.Value ?? "";
             var name = principal.FindFirst(ClaimTypes.Name)?.Value ?? "";
             var roles = principal.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray();

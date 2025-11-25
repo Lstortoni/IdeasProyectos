@@ -30,8 +30,29 @@ namespace ProyectoIdeasApi.SERVICES
             throw new NotImplementedException();
         }
 
-        Task<IdeaConcretaDto> IIdeaCreadaService.CrearIdeaAsync(Guid miembroId, CrearIdeaRequestDto dto)
+        async Task<IdeaConcretaDto> IIdeaCreadaService.CrearIdeaAsync(Guid miembroId, CrearIdeaRequestDto dto)
         {
+            if (dto is null)
+                throw new ArgumentNullException(nameof(dto));
+
+            var creador = await _miembroRepo.GetByIdAsync(miembroId)
+                           ?? throw new InvalidOperationException("El miembro creador no existe.");
+
+            var idea = new IdeaConcreta
+            {
+                Nombre = dto.Nombre,
+                Proposito = dto.Proposito,
+                Color = dto.Color,
+                FechaCreacion = DateTime.UtcNow,
+                CreadorId = miembroId,
+                Creador = creador,
+                RubroId = dto.RubroId
+            };
+
+            await _ideaRepo.AddAsync(idea);
+            await _ideaRepo.SaveChangesAsync();
+
+            return MapToDto(idea);
             throw new NotImplementedException();
         }
 

@@ -21,7 +21,13 @@ namespace ProyectoIdeasApi.MODEL
 
         public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
 
+
+        public bool Activa { get; set; } = true;
         // --- Relaciones ---
+
+        public bool EstaAbierta() { 
+            return Activa && Grupo.Id == Guid.Empty;
+        }
 
         // Quien creó la idea
         public Guid CreadorId { get; set; }
@@ -31,9 +37,9 @@ namespace ProyectoIdeasApi.MODEL
         public List<Interesado> Interesados { get; set; } = new();
 
         // Grupo asociado a la idea (puede no existir todavía)
-        public Grupo? Grupo { get; set; }
+        public Grupo Grupo { get; set; } = null!;
 
-        public Guid? RubroId { get; set; }
+        public Guid RubroId { get; set; }
         public Rubro? Rubro { get; set; }
     }
 }
