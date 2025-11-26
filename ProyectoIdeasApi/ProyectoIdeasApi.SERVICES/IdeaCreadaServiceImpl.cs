@@ -70,5 +70,20 @@ namespace ProyectoIdeasApi.SERVICES
         {
             throw new NotImplementedException();
         }
+
+        private static IdeaConcretaDto MapToDto(IdeaConcreta idea)
+        {
+            return new IdeaConcretaDto
+            {
+                Id = idea.Id,
+                Nombre = idea.Nombre,
+                Proposito = idea.Proposito,
+                Color = idea.Color,
+                FechaCreacion = idea.FechaCreacion,
+                CreadorId = idea.CreadorId,
+                RubroId = idea.RubroId
+                // lo que tenga tu DTO
+            };
+        }
     }
 }
