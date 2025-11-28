@@ -28,6 +28,7 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE.Jwt
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Email, user.Email),
             new(ClaimTypes.Name, user.Name),
+            new("miembroId", user.MiembroId.ToString())
         };
             claims.AddRange(user.Roles.Select(r => new Claim(ClaimTypes.Role, r)));
 

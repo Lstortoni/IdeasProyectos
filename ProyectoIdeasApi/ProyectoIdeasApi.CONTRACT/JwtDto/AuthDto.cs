@@ -13,6 +13,6 @@ namespace ProyectoIdeasApi.CONTRACT.JwtDto
             DateTime ExpiresAtUtc,
             string user);
 
-        public sealed record CurrentUserDto(Guid Id, string Email, string Name, string[] Roles);
+        public sealed record CurrentUserDto(Guid Id, string Email, string Name, Guid MiembroId, string[] Roles);
     }
 }

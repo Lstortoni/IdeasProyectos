@@ -56,19 +56,49 @@ namespace ProyectoIdeasApi.SERVICES
             throw new NotImplementedException();
         }
 
-        Task IIdeaCreadaService.InteresarseAsync(Guid miembroId, Guid ideaId)
+        async Task IIdeaCreadaService.InteresarseAsync(Guid miembroId, Guid ideaId)
         {
-            throw new NotImplementedException();
+            // 1) Validar miembro
+            var miembro = await _miembroRepo.GetByIdAsync(miembroId)
+                           ?? throw new InvalidOperationException("El miembro no existe.");
+
+            // 2) Validar idea
+            var idea = await _ideaRepo.GetByIdAsync(ideaId)
+                       ?? throw new InvalidOperationException("La idea no existe.");
+
+            // 3) Validar idea abierta
+            if (!idea.EstaAbierta())
+                throw new InvalidOperationException("La idea ya no está abierta a nuevos interesados.");
+
+            // 4) Evitar duplicados
+            var yaInteresado = idea.Interesados.Any(i => i.MiembroId == miembroId);
+            if (yaInteresado)
+                return; // o lanzar error, según tu regla de negocio
+
+            // 5) Agregar interesado
+            idea.Interesados.Add(new Interesado
+            {
+                Id = Guid.NewGuid(),
+                MiembroId = miembroId,
+                Miembro = miembro,
+                IdeaConcretaId = idea.Id,
+                IdeaConcreta = idea
+            });
+
+            // 6) Guardar cambios
+            await _ideaRepo.SaveChangesAsync();
         }
 
-        Task<List<IdeaConcretaDto>> IIdeaCreadaService.ListarIdeasAbiertasAsync()
+        async Task<List<IdeaConcretaDto>> IIdeaCreadaService.ListarIdeasAbiertasAsync()
         {
-            throw new NotImplementedException();
+            var ideas = await _ideaRepo.GetIdeasAbiertasAsync();
+            return ideas.Select(MapToDto).ToList();
         }
 
-        Task<List<IdeaConcretaDto>> IIdeaCreadaService.ListarIdeasCreadasPorAsync(Guid miembroId)
+        async Task<List<IdeaConcretaDto>> IIdeaCreadaService.ListarIdeasCreadasPorAsync(Guid miembroId)
         {
-            throw new NotImplementedException();
+            var ideas = await _ideaRepo.GetIdeasCreadasPorAsync(miembroId);
+            return ideas.Select(MapToDto).ToList();
         }
 
         private static IdeaConcretaDto MapToDto(IdeaConcreta idea)

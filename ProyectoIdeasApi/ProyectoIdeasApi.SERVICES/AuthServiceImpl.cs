@@ -122,6 +122,7 @@ namespace ProyectoIdeasApi.SERVICES
                 usuario.Id,
                 usuario.EmailLogin,
                 usuario.Miembro!.Nombre,
+                usuario.Miembro.Id,
                 new[] { "Usuario" }
             );
 
