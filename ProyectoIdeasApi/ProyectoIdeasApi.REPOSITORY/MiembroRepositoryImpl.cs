@@ -57,5 +57,11 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE
         {
             return _db.SaveChangesAsync(ct);
         }
+
+        Task IMiembroRepository.RemoveIntimoAsync(MiembroIntimo relacion, CancellationToken ct)
+        {
+            _db.MiembrosIntimo.Remove(relacion);
+            return Task.CompletedTask;
+        }
     }
 }

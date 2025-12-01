@@ -106,14 +106,37 @@ namespace ProyectoIdeasApi.SERVICES
             await _miembroRepo.SaveChangesAsync(ct);
         }
 
-        Task IMiembroService.QuitarIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct)
+       async  Task IMiembroService.QuitarIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var miembro = await _miembroRepo.GetByIdWithIntimosAsync(miembroId, ct)
+              ?? throw new InvalidOperationException("El miembro no existe.");
+
+            var relacion = miembro.Intimos
+                                  .FirstOrDefault(r => r.IntimoId == intimoId);
+
+            if (relacion == null)
+                throw new InvalidOperationException("Ese íntimo no está asociado al miembro.");
+
+            // Quitar de la colección del miembro
+            miembro.Intimos.Remove(relacion);
+
+            // O eliminarlo directo desde el repo
+            await _miembroRepo.RemoveIntimoAsync(relacion, ct);
+
+            await _miembroRepo.SaveChangesAsync(ct);
         }
 
-        Task<List<MiembroDto>> IMiembroService.ListarIntimosAsync(Guid miembroId, CancellationToken ct)
+        async Task<List<MiembroDto>> IMiembroService.ListarIntimosAsync(Guid miembroId, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var miembro = await _miembroRepo.GetByIdWithIntimosAsync(miembroId, ct)
+                  ?? throw new InvalidOperationException("El miembro no existe.");
+
+            // miembro.Intimos es List<MiembroIntimo>
+            var lista = miembro.Intimos
+                               .Select(rel => MapToDto(rel.Intimo))
+                               .ToList();
+
+            return lista;
         }
     }
 }

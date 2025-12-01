@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIdeasApi.INFRASTRUCTURE.Configuration
 {
-    public class MiembreIntimoCfg : IEntityTypeConfiguration<MiembroIntimo>
+    public class MiembroIntimoCfg : IEntityTypeConfiguration<MiembroIntimo>
     {
         public void Configure(EntityTypeBuilder<MiembroIntimo> e)
         {

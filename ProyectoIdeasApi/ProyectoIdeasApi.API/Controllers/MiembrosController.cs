@@ -93,5 +93,37 @@ namespace ProyectoIdeasApi.API.Controllers
 
             return Guid.TryParse(claim.Value, out var id) ? id : Guid.Empty;
         }
+
+        // POST api/miembros/{miembroId}/intimos/{intimoId}
+        [HttpPost("{miembroId:guid}/intimos/{intimoId:guid}")]
+        public async Task<IActionResult> MarcarComoIntimo(
+            Guid miembroId,
+            Guid intimoId,
+            CancellationToken ct)
+        {
+            await _miembroService.MarcarComoIntimoAsync(miembroId, intimoId, ct);
+            return NoContent(); // o Ok() si preferís
+        }
+
+        // DELETE api/miembros/{miembroId}/intimos/{intimoId}
+        [HttpDelete("{miembroId:guid}/intimos/{intimoId:guid}")]
+        public async Task<IActionResult> QuitarIntimo(
+            Guid miembroId,
+            Guid intimoId,
+            CancellationToken ct)
+        {
+            await _miembroService.QuitarIntimoAsync(miembroId, intimoId, ct);
+            return NoContent();
+        }
+
+        // GET api/miembros/{miembroId}/intimos
+        [HttpGet("{miembroId:guid}/intimos")]
+        public async Task<ActionResult<List<MiembroDto>>> ListarIntimos(
+            Guid miembroId,
+            CancellationToken ct)
+        {
+            var intimos = await _miembroService.ListarIntimosAsync(miembroId, ct);
+            return Ok(intimos);
+        }
     }
 }

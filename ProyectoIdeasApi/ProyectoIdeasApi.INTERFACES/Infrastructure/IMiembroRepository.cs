@@ -20,6 +20,8 @@ namespace ProyectoIdeasApi.INTERFACES.Infrastructure
         // Por si en algún momento querés editar datos del miembro
         Task UpdateAsync(Miembro miembro, CancellationToken ct = default);
 
+        Task RemoveIntimoAsync(MiembroIntimo relacion, CancellationToken ct = default);
+
         Task SaveChangesAsync(CancellationToken ct = default);
     }
 }
