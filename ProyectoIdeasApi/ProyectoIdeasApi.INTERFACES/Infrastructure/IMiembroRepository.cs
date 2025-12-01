@@ -15,6 +15,8 @@ namespace ProyectoIdeasApi.INTERFACES.Infrastructure
 
         Task<List<Miembro>> GetAllAsync(CancellationToken ct = default);
 
+        Task<Miembro?> GetByIdWithIntimosAsync(Guid id, CancellationToken ct = default);
+
         // Por si en algún momento querés editar datos del miembro
         Task UpdateAsync(Miembro miembro, CancellationToken ct = default);
 

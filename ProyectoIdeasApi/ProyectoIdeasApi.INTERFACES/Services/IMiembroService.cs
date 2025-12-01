@@ -17,5 +17,11 @@ namespace ProyectoIdeasApi.INTERFACES.Services
 
         // Por si en algún momento querés editar datos del miembro
         Task UpdateAsync(MiembroDto miembro, CancellationToken ct = default);
+
+        // NUEVOS casos de uso de negocio
+        Task MarcarComoIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct = default);
+        Task QuitarIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct = default);
+        Task<List<MiembroDto>> ListarIntimosAsync(Guid miembroId, CancellationToken ct = default);
+
     }
 }

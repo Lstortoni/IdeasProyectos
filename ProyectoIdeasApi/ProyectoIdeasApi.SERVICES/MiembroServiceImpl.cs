@@ -71,9 +71,49 @@ namespace ProyectoIdeasApi.SERVICES
             };
         }
 
+        async Task IMiembroService.MarcarComoIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct)
+        {
+            if (miembroId == intimoId)
+                throw new InvalidOperationException("No podés marcarte a vos mismo como íntimo.");
 
-        
+            // 1) Traer al miembro con sus íntimos
+            var miembro = await _miembroRepo.GetByIdWithIntimosAsync(miembroId, ct)
+                          ?? throw new InvalidOperationException("El miembro no existe.");
 
+            // 2) Traer al miembro 'intimo'
+            var intimo = await _miembroRepo.GetByIdAsync(intimoId, ct)
+                         ?? throw new InvalidOperationException("El miembro íntimo no existe.");
 
+            // 3) Evitar duplicados
+            var yaEsIntimo = miembro.Intimos.Any(i => i.IntimoId == intimoId);
+            if (yaEsIntimo)
+                return; // o lanzar excepción si querés ser más estricto
+
+            // 4) Crear relación
+            var relacion = new MiembroIntimo
+            {
+                // Id se genera solo
+                PropietarioId = miembro.Id,   // el "dueño" de la lista
+                Propietario = miembro,
+                IntimoId = intimo.Id,
+                Intimo = intimo,
+                FechaAgregado = DateTime.UtcNow
+            };
+
+            miembro.Intimos.Add(relacion);
+
+            // 5) Guardar cambios
+            await _miembroRepo.SaveChangesAsync(ct);
+        }
+
+        Task IMiembroService.QuitarIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<MiembroDto>> IMiembroService.ListarIntimosAsync(Guid miembroId, CancellationToken ct)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

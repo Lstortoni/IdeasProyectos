@@ -39,6 +39,14 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE
             return await _db.Miembros.ToListAsync(ct);
         }
 
+        public async Task<Miembro?> GetByIdWithIntimosAsync(Guid id, CancellationToken ct = default)
+        {
+            return await _db.Miembros
+                .Include(m => m.Intimos)
+                    .ThenInclude(i => i.Intimo) // suponiendo que MiembroIntimo tiene prop Intimo
+                .FirstOrDefaultAsync(m => m.Id == id, ct);
+        }
+
         public Task UpdateAsync(Miembro miembro, CancellationToken ct = default)
         {
             _db.Miembros.Update(miembro);
