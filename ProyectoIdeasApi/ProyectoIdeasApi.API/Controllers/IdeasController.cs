@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdeasApi.CONTRACT.Dto.Ideas;
 using ProyectoIdeasApi.INTERFACES.Services;
+using ProyectoIdeasApi.SERVICES;
 
 namespace ProyectoIdeasApi.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]   // Todas las acciones requieren usuario autenticado
-    public class IdeasController : ControllerBase
+    public class IdeasController : BaseController
     {
         private readonly IIdeaCreadaService _ideasService;
 
-        public IdeasController(IIdeaCreadaService ideasService)
+        public IdeasController(IIdeaCreadaService ideasService,ILogService logService) : base(logService)
         {
             _ideasService = ideasService;
         }

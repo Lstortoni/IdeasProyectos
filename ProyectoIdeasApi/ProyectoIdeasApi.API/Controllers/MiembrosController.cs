@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdeasApi.CONTRACT.Dto.Miembro;
 using ProyectoIdeasApi.INTERFACES.Services;
+using ProyectoIdeasApi.SERVICES;
 
 namespace ProyectoIdeasApi.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class MiembrosController : ControllerBase
+    public class MiembrosController : BaseController
     {
         private readonly IMiembroService _miembroService;
 
-        public MiembrosController(IMiembroService miembroService)
+        public MiembrosController(IMiembroService miembroService, ILogService logService) : base(logService)
         {
             _miembroService = miembroService;
         }

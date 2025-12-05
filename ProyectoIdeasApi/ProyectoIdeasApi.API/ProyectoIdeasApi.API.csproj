@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -15,8 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProyectoIdeasApi.App.ErrorHandlingMiddleware\ProyectoIdeasApi.App.ErrorHandlingMiddleware.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.CONTRACT\ProyectoIdeasApi.CONTRACT.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.INTERFACES\ProyectoIdeasApi.INTERFACES.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.LOG\ProyectoIdeasApi.LOG.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.MODEL\ProyectoIdeasApi.MODEL.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.REPOSITORY\ProyectoIdeasApi.INFRASTRUCTURE.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.SERVICES\ProyectoIdeasApi.SERVICES.csproj" />

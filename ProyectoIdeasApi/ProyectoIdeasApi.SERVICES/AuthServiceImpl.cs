@@ -42,15 +42,20 @@ namespace ProyectoIdeasApi.SERVICES
                 return Task.FromResult<CurrentUserDto?>(null);
 
             var idClaim = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             if (!Guid.TryParse(idClaim, out var id))
-                return Task.FromResult<CurrentUserDto?>(null); // o lanzar excepción, como prefieras
+                return Task.FromResult<CurrentUserDto?>(null);
 
             var email = principal.FindFirst(ClaimTypes.Email)?.Value ?? "";
             var name = principal.FindFirst(ClaimTypes.Name)?.Value ?? "";
             var roles = principal.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray();
 
-            return Task.FromResult<CurrentUserDto?>(new(id, email, name, roles));
+            // ← leemos el miembroId del claim personalizado
+            var miembroIdClaim = principal.FindFirst("miembroId")?.Value;
+            Guid.TryParse(miembroIdClaim, out var miembroId);
+
+            return Task.FromResult<CurrentUserDto?>(
+                new CurrentUserDto(id, email, name, miembroId, roles)
+            );
         }
         // =====================================
         // LOGIN
@@ -75,6 +80,7 @@ namespace ProyectoIdeasApi.SERVICES
                 user.Id,
                 user.EmailLogin,
                 nombre,
+                user.Miembro?.Id ?? Guid.Empty,
                 new[] { "Usuario" }
             );
 

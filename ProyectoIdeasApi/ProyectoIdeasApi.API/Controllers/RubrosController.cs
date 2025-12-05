@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdeasApi.CONTRACT.Dto.Rubro;
 using ProyectoIdeasApi.INTERFACES.Services;
+using ProyectoIdeasApi.SERVICES;
 
 namespace ProyectoIdeasApi.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class RubrosController: ControllerBase
+    public class RubrosController: BaseController
     {
         private readonly IRubroService _rubroService;
 
-        public RubrosController(IRubroService rubroService)
+        public RubrosController(IRubroService rubroService, ILogService logService) : base(logService)
         {
             _rubroService = rubroService;
         }

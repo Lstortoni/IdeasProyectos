@@ -2,18 +2,23 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdeasApi.CONTRACT.Auth;
 using ProyectoIdeasApi.INTERFACES.Jwt;
+using ProyectoIdeasApi.INTERFACES.Services;
+using ProyectoIdeasApi.SERVICES;
 using static ProyectoIdeasApi.CONTRACT.JwtDto.AuthDto;
 
 namespace ProyectoIdeasApi.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService)
+        
+        public AuthController(IAuthService authService, ILogService logService) : base(logService)
+
         {
+            
             _authService = authService;
         }
 

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Polly;
 using ProyectoIdeasApi.CONTRACT.JwtDto;
+using ProyectoIdeasApi.ErrorHandlingMiddleware;
 using ProyectoIdeasApi.INFRASTRUCTURE.Data;
 using ProyectoIdeasApi.INFRASTRUCTURE.Jwt;
 using ProyectoIdeasApi.INTERFACES.Jwt;
@@ -71,6 +73,8 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -85,3 +89,28 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+// Config circuit breaker
+static IAsyncPolicy<HttpResponseMessage> GetMiPortalClientCircuitBreakerPolicy(int errors, int minutes)
+{
+    return Policy<HttpResponseMessage>
+        .Handle<HttpRequestException>()
+        .OrResult(msg => (int)msg.StatusCode == 403 || (int)msg.StatusCode >= 500)
+        .CircuitBreakerAsync(
+            handledEventsAllowedBeforeBreaking: errors,
+            durationOfBreak: TimeSpan.FromMinutes(minutes),
+            onBreak: (outcome, breakDelay) =>
+            {
+                Console.WriteLine($"[CircuitBreaker] >>> Circuit opened!. Break duration: {breakDelay.TotalSeconds} seconds.");
+            },
+            onReset: () =>
+            {
+                Console.WriteLine("[CircuitBreaker] >>> Circuit closed! Operations will flow again.");
+            },
+            onHalfOpen: () =>
+            {
+                Console.WriteLine("[CircuitBreaker] >>> Circuit is half-open. Testing connection...");
+            }
+        );
+}

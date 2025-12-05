@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoIdeasApi.CONTRACT.Dto.Grupo;
+using ProyectoIdeasApi.INTERFACES.Jwt;
 using ProyectoIdeasApi.INTERFACES.Services;
+using ProyectoIdeasApi.SERVICES;
 
 namespace ProyectoIdeasApi.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]   // Todas las acciones requieren usuario autenticado
-    public class GrupoController: ControllerBase
+    public class GrupoController: BaseController
     {
         private readonly IGrupoService _grupoService;
 
-        public GrupoController(IGrupoService grupoService)
+       
+        public GrupoController(IGrupoService grupoService, ILogService logService):base(logService)
         {
             _grupoService = grupoService;
         }

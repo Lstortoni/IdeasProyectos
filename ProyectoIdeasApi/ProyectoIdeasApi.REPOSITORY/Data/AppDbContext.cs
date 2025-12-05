@@ -23,6 +23,7 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE.Data
         public DbSet<MiembroIntimo> MiembrosIntimo => Set<MiembroIntimo>();
         public DbSet<Rubro> Rubros => Set<Rubro>();
         public DbSet<LinkExterno> LinksExterno => Set<LinkExterno>();
+        public DbSet<LogEntry> LogEntries => Set<LogEntry>();
         protected override void OnModelCreating(ModelBuilder b)
         {
             // Esto le dice a EF que aplique todas las clases de configuración
