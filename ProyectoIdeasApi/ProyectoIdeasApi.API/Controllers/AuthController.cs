@@ -15,7 +15,7 @@ namespace ProyectoIdeasApi.API.Controllers
         private readonly IAuthService _authService;
 
         
-        public AuthController(IAuthService authService, ILogService logService) : base(logService)
+        public AuthController(IAuthService authService)
 
         {
             

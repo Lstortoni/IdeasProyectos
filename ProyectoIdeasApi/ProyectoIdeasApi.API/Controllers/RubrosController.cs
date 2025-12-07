@@ -13,8 +13,7 @@ namespace ProyectoIdeasApi.API.Controllers
     {
         private readonly IRubroService _rubroService;
 
-        public RubrosController(IRubroService rubroService, ILogService logService) : base(logService)
-        {
+        public RubrosController(IRubroService rubroService) { 
             _rubroService = rubroService;
         }
 
@@ -37,21 +36,20 @@ namespace ProyectoIdeasApi.API.Controllers
             return Ok(rubro);
         }
 
-        // POST: api/rubros
         [HttpPost]
-        public async Task<ActionResult<List<RubroDto>>> AddRubro(
-            [FromBody] RubroDto dto,
-            CancellationToken ct)
+        public async Task<ActionResult<RubroDto>> AddRubro(
+        [FromBody] CreateRubroDto dto,
+        CancellationToken ct)
         {
             var result = await _rubroService.AddRubro(dto, ct);
-            return Ok(result); // o Created si querés algo más REST estricto
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
         // PUT: api/rubros/{id}
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<List<RubroDto>>> UpdateRubro(
             Guid id,
-            [FromBody] RubroDto dto,
+            [FromBody] UpdateRubroDto dto,
             CancellationToken ct)
         {
             dto.Id = id; // asegurar que el Id sea el de la ruta

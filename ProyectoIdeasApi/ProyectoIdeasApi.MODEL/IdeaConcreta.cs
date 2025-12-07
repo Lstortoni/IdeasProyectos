@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class IdeaConcreta
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         // Datos principales
         public string Nombre { get; set; } = string.Empty;

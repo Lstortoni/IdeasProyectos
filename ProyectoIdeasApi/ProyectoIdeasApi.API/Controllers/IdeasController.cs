@@ -13,7 +13,7 @@ namespace ProyectoIdeasApi.API.Controllers
     {
         private readonly IIdeaCreadaService _ideasService;
 
-        public IdeasController(IIdeaCreadaService ideasService,ILogService logService) : base(logService)
+        public IdeasController(IIdeaCreadaService ideasService)
         {
             _ideasService = ideasService;
         }
@@ -109,13 +109,6 @@ namespace ProyectoIdeasApi.API.Controllers
             return Ok(grupo);
         }
 
-        // ---------------------------------------------------
-        // Helper para obtener id del miembro logueado
-        // ---------------------------------------------------
-        private Guid GetMiembroId()
-        {
-            var claim = User.FindFirst("miembroId");
-            return claim is null ? Guid.Empty : Guid.Parse(claim.Value);
-        }
+      
     }
 }

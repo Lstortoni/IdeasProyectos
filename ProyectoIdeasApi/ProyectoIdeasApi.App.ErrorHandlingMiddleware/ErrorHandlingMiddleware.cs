@@ -11,7 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using LogLevel = ProyectoIdeasApi.MODEL.Enum.LogEnums.LogLevel;
 namespace ProyectoIdeasApi.ErrorHandlingMiddleware
 {
     public class ErrorHandlingMiddleware
@@ -24,6 +24,7 @@ namespace ProyectoIdeasApi.ErrorHandlingMiddleware
         {
             _next = next;
             _logger = logger;
+            _logService = logService;
         }
 
         public async Task Invoke(HttpContext context)
@@ -71,6 +72,13 @@ namespace ProyectoIdeasApi.ErrorHandlingMiddleware
             }
             catch (Exception ex)
             {
+
+                // 1) Log en logger estándar (consola, archivo, etc.)
+                _logger.LogError(ex, "Unhandled exception");
+
+                // 2) Log en base de datos con tu servicio
+                await _logService.LogMessage(LogLevel.ERROR, ex.Message, ex);
+
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = ApiErrorCatalog.MapExceptionToStatusCode(ex);
 

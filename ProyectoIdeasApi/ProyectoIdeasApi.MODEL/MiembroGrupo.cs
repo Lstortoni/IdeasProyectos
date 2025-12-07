@@ -9,7 +9,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class MiembroGrupo
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public DateTime FechaIngreso { get; set; } = DateTime.UtcNow;
 

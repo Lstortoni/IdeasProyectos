@@ -7,18 +7,11 @@ namespace ProyectoIdeasApi.API.Controllers
 {
     public abstract class BaseController : ControllerBase
     {
-        protected readonly ILogService _logService;
-
-        protected BaseController(ILogService logService)
+        // Ejemplo de helper que podrías usar en otros controllers
+        protected Guid GetMiembroId()
         {
-            _logService = logService;
+            var claim = User.FindFirst("miembroId");
+            return claim is null ? Guid.Empty : Guid.Parse(claim.Value);
         }
-
-
-
-
-
-        protected void HandleException(Exception ex)
-          => _logService.LogMessage(LogLevel.ERROR, ex.Message, ex);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIdeasApi.CONTRACT.Dto.Miembro
 {
-    public class CrearMiembroRequestDto
+    public class UpdateMiembroDto
     {
 
         [Required, StringLength(100)]
@@ -22,7 +22,7 @@ namespace ProyectoIdeasApi.CONTRACT.Dto.Miembro
         [Required, EmailAddress, StringLength(200)]
         public string Email { get; set; } = string.Empty;
 
-        [StringLength(500)]
+        [StringLength(300)]
         public string AutoDescripcion { get; set; } = string.Empty;
 
     }

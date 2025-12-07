@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class MiembroIntimo
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public Guid PropietarioId { get; set; }
         public Miembro Propietario { get; set; } = null!;

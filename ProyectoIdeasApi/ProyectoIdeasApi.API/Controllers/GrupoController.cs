@@ -15,7 +15,7 @@ namespace ProyectoIdeasApi.API.Controllers
         private readonly IGrupoService _grupoService;
 
        
-        public GrupoController(IGrupoService grupoService, ILogService logService):base(logService)
+        public GrupoController(IGrupoService grupoService)
         {
             _grupoService = grupoService;
         }
@@ -44,7 +44,7 @@ namespace ProyectoIdeasApi.API.Controllers
         [HttpGet("mios")]
         public async Task<ActionResult<List<GrupoDto>>> GetMyGroups(CancellationToken ct)
         {
-            var miembroId = GetMiembroIdFromClaims();
+            var miembroId = GetMiembroId();
             if (miembroId == Guid.Empty)
                 return Unauthorized();
 
@@ -61,13 +61,6 @@ namespace ProyectoIdeasApi.API.Controllers
             return Ok(grupos);
         }
 
-        // Helper: obtener miembroId desde el token
-        private Guid GetMiembroIdFromClaims()
-        {
-            var claim = User.FindFirst("miembroId");
-            if (claim is null) return Guid.Empty;
-
-            return Guid.TryParse(claim.Value, out var id) ? id : Guid.Empty;
-        }
+  
     }
 }

@@ -11,9 +11,28 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE.Configuration
 {
     public class MiembroCfg : IEntityTypeConfiguration<Miembro>
     {
-        void IEntityTypeConfiguration<Miembro>.Configure(EntityTypeBuilder<Miembro> builder)
+        public void Configure(EntityTypeBuilder<Miembro> e)
         {
-            throw new NotImplementedException();
+            e.HasKey(m => m.Id);
+
+            e.Property(m => m.Nombre)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            e.Property(m => m.Apellido)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            e.Property(m => m.Telefono)
+                .HasMaxLength(20);
+
+            e.Property(m => m.Email)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            e.Property(m => m.AutoDescripcion)
+                .HasMaxLength(300);
+            // Intimos / Habilidades los podés configurar cuando tengas claras esas entidades
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class LinkExterno
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
         public string Nombre { get; set; } = string.Empty; // Ej: "WhatsApp", "Discord"
         public string Url { get; set; } = string.Empty;    // Ej: https://chat.whatsapp...
 

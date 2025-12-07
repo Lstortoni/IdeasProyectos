@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class Grupo
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public string Nombre { get; set; } = string.Empty;
 

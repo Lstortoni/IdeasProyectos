@@ -14,8 +14,8 @@ namespace ProyectoIdeasApi.INTERFACES.Services
 
         Task<List<RubroDto>> GetAllAsync(CancellationToken ct = default);
 
-        Task<List<RubroDto>> AddRubro(RubroDto rubroDto, CancellationToken ct = default);
+        Task<RubroDto> AddRubro(CreateRubroDto rubroDto, CancellationToken ct = default);
 
-        Task<List<RubroDto>> updateRubro(RubroDto oldRubro, CancellationToken ct = default);
+        Task<List<RubroDto>> updateRubro(UpdateRubroDto oldRubro, CancellationToken ct = default);
     }
 }

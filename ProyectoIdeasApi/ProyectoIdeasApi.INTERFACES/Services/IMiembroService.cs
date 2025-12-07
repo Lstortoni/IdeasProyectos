@@ -16,7 +16,7 @@ namespace ProyectoIdeasApi.INTERFACES.Services
         Task<List<MiembroDto>> GetAllAsync(CancellationToken ct = default);
 
         // Por si en algún momento querés editar datos del miembro
-        Task UpdateAsync(MiembroDto miembro, CancellationToken ct = default);
+        Task UpdateAsync(Guid id,UpdateMiembroDto miembro, CancellationToken ct = default);
 
         // NUEVOS casos de uso de negocio
         Task MarcarComoIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct = default);

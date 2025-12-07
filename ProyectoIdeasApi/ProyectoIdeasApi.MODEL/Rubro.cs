@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class Rubro
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
 
         public string Nombre { get; set; } = string.Empty;
         public string? Descripcion { get; set; }

@@ -33,13 +33,13 @@ namespace ProyectoIdeasApi.SERVICES
         }
 
 
-       async Task IMiembroService.UpdateAsync(MiembroDto miembroDto, CancellationToken ct)
+       async Task IMiembroService.UpdateAsync(Guid id,UpdateMiembroDto miembroDto, CancellationToken ct)
         {
             if (miembroDto == null)
                 throw new ArgumentNullException(nameof(miembroDto));
 
             // 1) Buscar el miembro existente
-            var entity = await _miembroRepo.GetByIdAsync(miembroDto.Id, ct);
+            var entity = await _miembroRepo.GetByIdAsync(id, ct);
             if (entity is null)
                 throw new InvalidOperationException("El miembro no existe.");
 

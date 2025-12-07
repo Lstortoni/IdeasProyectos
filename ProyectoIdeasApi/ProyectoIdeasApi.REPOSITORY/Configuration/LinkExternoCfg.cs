@@ -11,7 +11,7 @@ namespace ProyectoIdeasApi.INFRASTRUCTURE.Configuration
 {
     public class LinkExternoCfg : IEntityTypeConfiguration<LinkExterno>
     {
-        public void Configure(EntityTypeBuilder<LinkExterno e)
+        public void Configure(EntityTypeBuilder<LinkExterno> e)
         {
             e.HasKey(x => x.Id);
 

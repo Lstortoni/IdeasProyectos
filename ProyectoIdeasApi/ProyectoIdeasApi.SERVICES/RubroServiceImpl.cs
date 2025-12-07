@@ -14,20 +14,34 @@ namespace ProyectoIdeasApi.SERVICES
     {
         private readonly IRubroRepository _rubroRepo;
 
-        public async Task<List<RubroDto>> AddRubro(RubroDto rubroDto, CancellationToken ct = default)
+        public RubroServiceImpl(IRubroRepository rubroRepo)
+        {
+            _rubroRepo = rubroRepo;
+        }
+        public async Task<RubroDto> AddRubro(CreateRubroDto rubroDto, CancellationToken ct = default)
         {
             if (rubroDto == null)
                 throw new ArgumentNullException(nameof(rubroDto));
 
-            var entity = MapToEntity(rubroDto);
-            entity.Id = Guid.NewGuid();
+            // 1) Mapear DTO -> Entidad (sin asignar el Id)
+            var entity = new Rubro
+            {
+                Nombre = rubroDto.Nombre,
+                Descripcion = rubroDto.Descripcion
+            };
 
+            // 2) Guardar en la base (EF genera el Guid)
             await _rubroRepo.AddAsync(entity, ct);
             await _rubroRepo.SaveChangesAsync(ct);
 
-            // Devolvemos la lista completa, según tu firma
-            var all = await _rubroRepo.GetAllAsync(ct);
-            return all.Select(MapToDto).ToList();
+            // 3) EF ya cargó entity.Id
+            return new RubroDto
+            {
+                Id = entity.Id,                  // ← YA ESTÁ GENERADO POR EF
+                Nombre = entity.Nombre,
+                Descripcion = entity.Descripcion
+            };
+
         }
 
         public async Task<List<RubroDto>> GetAllAsync(CancellationToken ct = default)
@@ -42,7 +56,7 @@ namespace ProyectoIdeasApi.SERVICES
             return rubro is null ? null : MapToDto(rubro);
         }
 
-        public async Task<List<RubroDto>> updateRubro(RubroDto oldRubro, CancellationToken ct = default)
+        public async Task<List<RubroDto>> updateRubro(UpdateRubroDto oldRubro, CancellationToken ct = default)
         {
             if (oldRubro == null)
                 throw new ArgumentNullException(nameof(oldRubro));
@@ -73,10 +87,10 @@ namespace ProyectoIdeasApi.SERVICES
                 Descripcion = r.Descripcion
             };
 
-        private static Rubro MapToEntity(RubroDto dto) =>
+        private static Rubro MapToEntity(CreateRubroDto dto) =>
             new Rubro
             {
-                Id = dto.Id,
+               
                 Nombre = dto.Nombre,
                 Descripcion = dto.Descripcion
             };

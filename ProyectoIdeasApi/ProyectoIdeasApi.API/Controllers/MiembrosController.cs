@@ -13,8 +13,8 @@ namespace ProyectoIdeasApi.API.Controllers
     {
         private readonly IMiembroService _miembroService;
 
-        public MiembrosController(IMiembroService miembroService, ILogService logService) : base(logService)
-        {
+        public MiembrosController(IMiembroService miembroService) { 
+        
             _miembroService = miembroService;
         }
 
@@ -51,7 +51,7 @@ namespace ProyectoIdeasApi.API.Controllers
         [HttpGet("me")]
         public async Task<ActionResult<MiembroDto>> GetMe(CancellationToken ct)
         {
-            var miembroId = GetMiembroIdFromClaims();
+            var miembroId = GetMiembroId();
             if (miembroId == Guid.Empty)
                 return Unauthorized();
 
@@ -69,31 +69,19 @@ namespace ProyectoIdeasApi.API.Controllers
         // ---------------------------------------------------
         [HttpPut("me")]
         public async Task<ActionResult> UpdateMe(
-            [FromBody] MiembroDto dto,
+            [FromBody] UpdateMiembroDto dto,
             CancellationToken ct)
         {
-            var miembroId = GetMiembroIdFromClaims();
+            var miembroId = GetMiembroId();
             if (miembroId == Guid.Empty)
                 return Unauthorized();
 
-            // Aseguramos que solo pueda editarse a sí mismo
-            dto.Id = miembroId;
-
-            await _miembroService.UpdateAsync(dto, ct);
+         
+            await _miembroService.UpdateAsync(miembroId,dto, ct);
 
             return NoContent();
         }
 
-        // ---------------------------------------------------
-        // Helper: obtener miembroId desde los claims del JWT
-        // ---------------------------------------------------
-        private Guid GetMiembroIdFromClaims()
-        {
-            var claim = User.FindFirst("miembroId");
-            if (claim is null) return Guid.Empty;
-
-            return Guid.TryParse(claim.Value, out var id) ? id : Guid.Empty;
-        }
 
         // POST api/miembros/{miembroId}/intimos/{intimoId}
         [HttpPost("{miembroId:guid}/intimos/{intimoId:guid}")]

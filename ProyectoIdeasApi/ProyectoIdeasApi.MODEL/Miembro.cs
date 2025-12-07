@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class Miembro
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;

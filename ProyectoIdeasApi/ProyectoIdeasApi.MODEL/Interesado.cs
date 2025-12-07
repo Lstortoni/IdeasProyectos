@@ -8,7 +8,7 @@ namespace ProyectoIdeasApi.MODEL
 {
     public class Interesado
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } 
 
 
         public DateTime FechaInteres { get; set; } = DateTime.UtcNow;
