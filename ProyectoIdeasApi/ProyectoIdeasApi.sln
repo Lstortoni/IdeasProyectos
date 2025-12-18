@@ -15,20 +15,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.INTERFACES
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.SERVICES", "ProyectoIdeasApi.SERVICES\ProyectoIdeasApi.SERVICES.csproj", "{CD7A227F-911C-4F5A-B8F7-BF3456C4B1CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.INFRASTRUCTURE", "ProyectoIdeasApi.REPOSITORY\ProyectoIdeasApi.INFRASTRUCTURE.csproj", "{642C9DA8-491C-4B4C-817F-365889C6BCC7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.MODEL", "ProyectoIdeasApi.MODEL\ProyectoIdeasApi.MODEL.csproj", "{2D80D569-7BCD-4E71-B6CD-8F2CA4119775}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{D107F4C8-89CC-BEA8-D3D7-CA6B7733353D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		docker-compose.db.yml = docker-compose.db.yml
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
+		Dockerfile.postgres = Dockerfile.postgres
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.LOG", "ProyectoIdeasApi.LOG\ProyectoIdeasApi.LOG.csproj", "{34489A69-5EB6-4503-9029-B7880806C32E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.App.ErrorHandlingMiddleware", "ProyectoIdeasApi.App.ErrorHandlingMiddleware\ProyectoIdeasApi.App.ErrorHandlingMiddleware.csproj", "{44978605-7ED5-4A2D-A81E-C9893090D132}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoIdeasApi.INFRASTRUCTURE", "ProyectoIdeasApi.INFRASTRUCTURE\ProyectoIdeasApi.INFRASTRUCTURE.csproj", "{AE7742C6-9F2C-9BB5-2CA7-176A54EC7EBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +54,6 @@ Global
 		{CD7A227F-911C-4F5A-B8F7-BF3456C4B1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7A227F-911C-4F5A-B8F7-BF3456C4B1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7A227F-911C-4F5A-B8F7-BF3456C4B1CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{642C9DA8-491C-4B4C-817F-365889C6BCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{642C9DA8-491C-4B4C-817F-365889C6BCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{642C9DA8-491C-4B4C-817F-365889C6BCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{642C9DA8-491C-4B4C-817F-365889C6BCC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D80D569-7BCD-4E71-B6CD-8F2CA4119775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D80D569-7BCD-4E71-B6CD-8F2CA4119775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D80D569-7BCD-4E71-B6CD-8F2CA4119775}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +66,10 @@ Global
 		{44978605-7ED5-4A2D-A81E-C9893090D132}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44978605-7ED5-4A2D-A81E-C9893090D132}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44978605-7ED5-4A2D-A81E-C9893090D132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE7742C6-9F2C-9BB5-2CA7-176A54EC7EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE7742C6-9F2C-9BB5-2CA7-176A54EC7EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE7742C6-9F2C-9BB5-2CA7-176A54EC7EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE7742C6-9F2C-9BB5-2CA7-176A54EC7EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,10 +79,10 @@ Global
 		{095E489F-2094-48FD-8045-26A83BA94DD0} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
 		{7B1CDBAF-D371-44F5-99E1-C8A1D512E794} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
 		{CD7A227F-911C-4F5A-B8F7-BF3456C4B1CC} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
-		{642C9DA8-491C-4B4C-817F-365889C6BCC7} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
 		{2D80D569-7BCD-4E71-B6CD-8F2CA4119775} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
 		{34489A69-5EB6-4503-9029-B7880806C32E} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
 		{44978605-7ED5-4A2D-A81E-C9893090D132} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
+		{AE7742C6-9F2C-9BB5-2CA7-176A54EC7EBB} = {07016DB1-04ED-405A-ACE0-0C3342BA4290}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A0EDF74-405D-450D-B1E1-6AB966E19944}

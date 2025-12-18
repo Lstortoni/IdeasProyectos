@@ -1,0 +1,11 @@
+FROM postgres:16
+
+RUN apt-get update \
+ && apt-get install -y tzdata \
+ && rm -rf /var/lib/apt/lists/*
+
+# Alias para clientes que envían "America/Buenos_Aires"
+RUN mkdir -p /usr/share/zoneinfo/America \
+ && ln -sf /usr/share/zoneinfo/America/Argentina/Buenos_Aires \
+           /usr/share/zoneinfo/America/Buenos_Aires
+

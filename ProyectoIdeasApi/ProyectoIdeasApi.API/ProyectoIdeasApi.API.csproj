@@ -10,6 +10,10 @@
     <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
@@ -17,10 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ProyectoIdeasApi.App.ErrorHandlingMiddleware\ProyectoIdeasApi.App.ErrorHandlingMiddleware.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.CONTRACT\ProyectoIdeasApi.CONTRACT.csproj" />
+    <ProjectReference Include="..\ProyectoIdeasApi.INFRASTRUCTURE\ProyectoIdeasApi.INFRASTRUCTURE.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.INTERFACES\ProyectoIdeasApi.INTERFACES.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.LOG\ProyectoIdeasApi.LOG.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.MODEL\ProyectoIdeasApi.MODEL.csproj" />
-    <ProjectReference Include="..\ProyectoIdeasApi.REPOSITORY\ProyectoIdeasApi.INFRASTRUCTURE.csproj" />
     <ProjectReference Include="..\ProyectoIdeasApi.SERVICES\ProyectoIdeasApi.SERVICES.csproj" />
   </ItemGroup>
 

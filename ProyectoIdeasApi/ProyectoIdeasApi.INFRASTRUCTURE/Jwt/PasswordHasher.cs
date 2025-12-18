@@ -1,4 +1,5 @@
-﻿using ApiLibrosController.Interfaces.Jwt;
+﻿
+using ProyectoIdeasApi.INTERFACES.Jwt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiLibrosController.Infrastructure
+namespace ProyectoIdeasApi.INFRASTRUCTURE.Jwt
 {
     public class PasswordHasher: IPasswordHasher
     {

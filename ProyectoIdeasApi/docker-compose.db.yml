@@ -1,0 +1,26 @@
+﻿services:
+  proyectoideas_db:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: proyectoideas_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: ProyectoIdeasDb
+      TZ: America/Buenos_Aires
+      PGTZ: America/Buenos_Aires
+    ports:
+      - "5433:5432"
+    volumes:
+      - proyectoideas_db_data:/var/lib/postgresql/data
+    networks:
+      - infra_net
+
+volumes:
+  proyectoideas_db_data:
+
+networks:
+  infra_net:
+    external: true

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,17 +19,20 @@ namespace ProyectoIdeasApi.ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ErrorHandlingMiddleware> _logger;
-        private readonly ILogService _logService;
+  
 
-        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger, ILogService logService)
+        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
             _next = next;
             _logger = logger;
-            _logService = logService;
+            
         }
 
         public async Task Invoke(HttpContext context)
         {
+            // Scoped por request (acá sí se puede)
+            var _logService = context.RequestServices.GetRequiredService<ILogService>();
+
             var originalBody = context.Response.Body;
             using var responseBody = new MemoryStream();
             try

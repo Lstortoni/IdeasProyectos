@@ -17,7 +17,7 @@ namespace ProyectoIdeasApi.MODEL
         public string Proposito { get; set; } = string.Empty;
 
         // Color visual para identificar la idea (ej: "#FFAA00" o "green")
-        public string Color { get; set; } = string.Empty;
+        public string? Color { get; set; } = null;
 
         public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
 

@@ -4,9 +4,15 @@ using Microsoft.IdentityModel.Tokens;
 using Polly;
 using ProyectoIdeasApi.CONTRACT.JwtDto;
 using ProyectoIdeasApi.ErrorHandlingMiddleware;
+using ProyectoIdeasApi.INFRASTRUCTURE;
 using ProyectoIdeasApi.INFRASTRUCTURE.Data;
 using ProyectoIdeasApi.INFRASTRUCTURE.Jwt;
+using ProyectoIdeasApi.INTERFACES.Infrastructure;
 using ProyectoIdeasApi.INTERFACES.Jwt;
+using ProyectoIdeasApi.INTERFACES.Log;
+using ProyectoIdeasApi.INTERFACES.Services;
+using ProyectoIdeasApi.LOG;
+using ProyectoIdeasApi.SERVICES;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,7 +77,34 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 
+
+builder.Services.AddScoped<IAuthService, AuthServiceImpl>();
+builder.Services.AddScoped<ILogService, LogServiceImpl>();
+builder.Services.AddScoped<IGrupoService, GrupoServiceImpl>();
+builder.Services.AddScoped<IIdeaCreadaService, IdeaCreadaServiceImpl>();
+builder.Services.AddScoped<IMiembroService, MiembroServiceImpl>();
+builder.Services.AddScoped<IRubroService, RubroServiceImpl>();
+builder.Services.AddHttpContextAccessor();
+
+
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepositoryImpl>();
+builder.Services.AddScoped<IGrupoRepository, GrupoRepositoryImpl>();
+builder.Services.AddScoped<IIdeaCreadaRepository, IdeaCreadaRepositoryImpl>();
+builder.Services.AddScoped<IMiembroRepository, MiembroRepositoryImpl>();
+builder.Services.AddScoped<IRubroRepository, RubroRepositoryImpl>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<ILogRepository, LogRepositoryImpl>();
+
+
 var app = builder.Build();
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
@@ -84,6 +117,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

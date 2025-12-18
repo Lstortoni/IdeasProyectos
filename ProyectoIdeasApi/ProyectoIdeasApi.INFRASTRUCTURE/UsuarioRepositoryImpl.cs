@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace ProyectoIdeasApi.INFRASTRUCTURE
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepositoryImpl : IUsuarioRepository
     {
 
         private readonly AppDbContext _db;
 
-        public UsuarioRepository(AppDbContext db)
+        public UsuarioRepositoryImpl(AppDbContext db)
         {
             _db = db;
         }

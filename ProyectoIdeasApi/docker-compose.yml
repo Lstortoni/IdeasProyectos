@@ -1,0 +1,30 @@
+﻿services:
+  proyectoideas_api:
+    build:
+      context: .
+    image: proyectoideas_api:latest
+    container_name: proyectoideas_api
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://0.0.0.0:5000
+
+      # EF Core (IMPORTANTE: host es el nombre del contenedor de la DB)
+      ConnectionStrings__DefaultConnection: Host=proyectoideas_db;Port=5432;Database=ProyectoIdeasDb;Username=postgres;Password=admin123
+
+      # JWT
+      Jwt__Key: "%ksnfvyhssl#sjkañnv)$DJUidi#=naañlojsoijraña%lkd"
+      Jwt__Issuer: ProyectoIdeasApi
+      Jwt__Audience: ProyectoIdeasApiUsers
+
+      MIN_LOG_LEVEL: "DEBUG"
+      SAVE_LOGS_DB: "true"
+    ports:
+      - "5000:5000"
+    networks:
+      - infra_net
+
+networks:
+  infra_net:
+    external: true
+
