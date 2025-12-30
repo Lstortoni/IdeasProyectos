@@ -58,6 +58,14 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // Configurar autenticación JWT
 var key = builder.Configuration["Jwt:Key"];
 var issuer = builder.Configuration["Jwt:Issuer"];
+var audience = builder.Configuration["Jwt:Audience"];
+
+
+Console.WriteLine("===== JWT CONFIG (STARTUP) =====");
+Console.WriteLine($"Jwt:Key      = {(string.IsNullOrEmpty(key) ? "NULL" : "[OK]")}");
+Console.WriteLine($"Jwt:Issuer   = {issuer}");
+Console.WriteLine($"Jwt:Audience = {audience}");
+Console.WriteLine("================================");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -65,12 +73,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
+            ValidIssuer = issuer,
+
             ValidateAudience = true,
+            ValidAudience = audience,
+
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = issuer,
-            ValidAudience = issuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+
+            ClockSkew = TimeSpan.FromMinutes(1) // recomendado
         };
     });
 

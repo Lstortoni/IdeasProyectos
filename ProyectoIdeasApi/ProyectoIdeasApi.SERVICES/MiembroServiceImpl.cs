@@ -71,7 +71,7 @@ namespace ProyectoIdeasApi.SERVICES
             };
         }
 
-        async Task IMiembroService.MarcarComoIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct)
+        async Task IMiembroService.MarcarComoIntimoAsync(Guid miembroId, Guid intimoId,string? nota, CancellationToken ct)
         {
             if (miembroId == intimoId)
                 throw new InvalidOperationException("No podés marcarte a vos mismo como íntimo.");
@@ -97,6 +97,7 @@ namespace ProyectoIdeasApi.SERVICES
                 Propietario = miembro,
                 IntimoId = intimo.Id,
                 Intimo = intimo,
+                Nota = nota,
                 FechaAgregado = DateTime.UtcNow
             };
 

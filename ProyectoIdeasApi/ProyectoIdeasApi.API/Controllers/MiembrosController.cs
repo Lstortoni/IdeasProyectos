@@ -83,34 +83,40 @@ namespace ProyectoIdeasApi.API.Controllers
         }
 
 
-        // POST api/miembros/{miembroId}/intimos/{intimoId}
-        [HttpPost("{miembroId:guid}/intimos/{intimoId:guid}")]
+        // POST api/miembros/me/intimos
+        [HttpPost("me/intimos")]
         public async Task<IActionResult> MarcarComoIntimo(
-            Guid miembroId,
-            Guid intimoId,
+            [FromBody] AddIntimoDto dto,
             CancellationToken ct)
         {
-            await _miembroService.MarcarComoIntimoAsync(miembroId, intimoId, ct);
-            return NoContent(); // o Ok() si preferís
+            var miembroId = GetMiembroId();
+            if (miembroId == Guid.Empty)
+                return Unauthorized();
+
+            await _miembroService.MarcarComoIntimoAsync(miembroId, dto.IntimoId, dto.Nota, ct);
+            return NoContent();
         }
 
-        // DELETE api/miembros/{miembroId}/intimos/{intimoId}
-        [HttpDelete("{miembroId:guid}/intimos/{intimoId:guid}")]
-        public async Task<IActionResult> QuitarIntimo(
-            Guid miembroId,
-            Guid intimoId,
-            CancellationToken ct)
+        [HttpDelete("me/intimos/{intimoId:guid}")]
+        public async Task<IActionResult> QuitarIntimo(Guid intimoId, CancellationToken ct)
         {
+            var miembroId = GetMiembroId();
+            if (miembroId == Guid.Empty)
+                return Unauthorized();
+
             await _miembroService.QuitarIntimoAsync(miembroId, intimoId, ct);
             return NoContent();
         }
 
-        // GET api/miembros/{miembroId}/intimos
-        [HttpGet("{miembroId:guid}/intimos")]
-        public async Task<ActionResult<List<MiembroDto>>> ListarIntimos(
-            Guid miembroId,
-            CancellationToken ct)
+
+
+        [HttpGet("me/intimos")]
+        public async Task<ActionResult<List<MiembroDto>>> ListarIntimos(CancellationToken ct)
         {
+            var miembroId = GetMiembroId();
+            if (miembroId == Guid.Empty)
+                return Unauthorized();
+
             var intimos = await _miembroService.ListarIntimosAsync(miembroId, ct);
             return Ok(intimos);
         }

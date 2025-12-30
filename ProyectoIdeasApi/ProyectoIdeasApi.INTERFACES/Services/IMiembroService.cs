@@ -19,7 +19,7 @@ namespace ProyectoIdeasApi.INTERFACES.Services
         Task UpdateAsync(Guid id,UpdateMiembroDto miembro, CancellationToken ct = default);
 
         // NUEVOS casos de uso de negocio
-        Task MarcarComoIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct = default);
+        Task MarcarComoIntimoAsync(Guid miembroId, Guid intimoId,string? nota, CancellationToken ct = default);
         Task QuitarIntimoAsync(Guid miembroId, Guid intimoId, CancellationToken ct = default);
         Task<List<MiembroDto>> ListarIntimosAsync(Guid miembroId, CancellationToken ct = default);
 

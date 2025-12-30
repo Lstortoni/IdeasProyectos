@@ -53,6 +53,7 @@ namespace ProyectoIdeasApi.SERVICES
             var miembroIdClaim = principal.FindFirst("miembroId")?.Value;
             Guid.TryParse(miembroIdClaim, out var miembroId);
 
+
             return Task.FromResult<CurrentUserDto?>(
                 new CurrentUserDto(id, email, name, miembroId, roles)
             );
